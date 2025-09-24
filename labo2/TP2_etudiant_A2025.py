@@ -90,7 +90,7 @@ plt.show()
 # %%
 # Question 2a
 T = 1 / 60
-E = 120
+E = 1
 
 harmonics = np.arange(2, 2 * 40 + 2, 2)
 A0 = 2 * E / np.pi
@@ -103,7 +103,9 @@ for n, an in zip(harmonics, An):
 mask = t <= 2 * T
 plt.figure(figsize=(9, 3))
 plt.plot(t[mask], vs[mask], color="green", label=r"$v_s(t)$")
-plt.plot(t[mask], vs_fourier[mask], color="blue", linestyle="--", label="Serie de Fourier")
+plt.plot(
+    t[mask], vs_fourier[mask], color="blue", linestyle="--", label="Serie de Fourier"
+)
 plt.xlabel("Temps (s)")
 plt.ylabel("Tension (V)")
 plt.legend()
@@ -144,12 +146,14 @@ for n in n_values:
 
 magn_fft = np.abs(Vs[indices])
 
+
 def fourier_A(n):
     if n == 0:
         return 2 * E / np.pi
     if n == 1:
         return 0.0
-    return (2 * E / np.pi) * (1 + (-1)**n) / (1 - n**2)
+    return (2 * E / np.pi) * (1 + (-1) ** n) / (1 - n**2)
+
 
 magn_theo = []
 for n in n_values:
@@ -160,8 +164,22 @@ for n in n_values:
         magn_theo.append(np.abs(value) / 2)
 
 plt.figure(figsize=(9, 3))
-plt.stem(n_values * f0, magn_fft, linefmt="C2-", markerfmt="C2o", basefmt="k-", label="FFT (norm forward)")
-plt.stem(n_values * f0, magn_theo, linefmt="C1--", markerfmt="C1s", basefmt="k-", label="Serie analytique")
+plt.stem(
+    n_values * f0,
+    magn_fft,
+    linefmt="C2-",
+    markerfmt="C2o",
+    basefmt="k-",
+    label="FFT (norm forward)",
+)
+plt.stem(
+    n_values * f0,
+    magn_theo,
+    linefmt="C1--",
+    markerfmt="C1s",
+    basefmt="k-",
+    label="Serie analytique",
+)
 plt.xlabel("Frequence (Hz)")
 plt.ylabel("Magnitude")
 plt.title("Spectre de v_s(t) jusqu'a l'harmonique 12")
@@ -272,4 +290,3 @@ plt.show()
 # * Remettre sur moodle un fichier `.ipynb` contenant tous les exercises de ce TP avec toutes les librairies et importations nÃ©cessaires pour que le code roule sans erreurs. Remettre Ã©galement un fichier `.pdf` du notebook. (Voir Notes additionnelles du TP-1)
 #
 # * Indiquer vos noms, vos matricules et votre numÃ©ro d'Ã©quipe au dÃ©but dans l'entÃªte du `notebook`.
-
