@@ -1,2 +1,5 @@
 .venv
 settings.json
+.vscode
+.claude
+temp_output.txt
